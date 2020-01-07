@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+     $(function() {
+       var nav = $('.menu');
+       var navTop = nav.offset().top;
+       $(window).scroll(function () {
+	 var winTop = $(this).scrollTop();
+	 if (winTop >= navTop) {
+	   nav.addClass('fixed');
+	   $("body").css("margin-top","86px");
+	 } else if (winTop < navTop) {
+	   nav.removeClass('fixed');
+	   $("body").css("margin-top","0px");
+	 }
+       });
+     });
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="../hirai.css" />
+    <title>論文</title>
+  </head>
+  <body>
+    <h1>平井 遼介のホームページ</h1>
+    <nav>
+      <ul id="dropmenu" class="menu">
+	<li><a href="./">トップ</a></li>
+	<li><a href="profile.html">プロフィール</a></li>
+	<li><a href="research.html">研究内容</a>
+	  <ul>
+	    <li><a href="research.html#binary">連星系</a></li>
+	    <li><a href="research.html#numerical">数値計算手法</a></li>
+	  </ul>
+	</li>
+	<li><a href="papers.html">投稿論文</a>
+	  <ul>
+	    <li><a href="papers.html#first">主著論文</a></li>
+	    <li><a href="papers.html#co">共著論文</a></li>
+	  </ul>
+	</li>
+	<li><a href="talks.html">学会・研究会</a>
+	  <ul>
+	    <li><a href="talks.html#international">国際研究会</a></li>
+	    <li><a href="talks.html#domestic">国内学会</a></li>
+	    <li><a href="talks.html#workshop">国内研究会</a></li>
+	    <li><a href="talks.html#seminar">セミナー</a></li>
+	    <li><a href="talks.html#ss">サマースクール等</a></li>
+	    <li><a href="talks.html#others">その他</a></li>
+	  </ul>
+	</li>
+	<li><a href="../publications.html">English</a></li>
+      </ul>
+    </nav>
+
+    <h2 id="first">主著論文</h2>
+
+    <ol reversed>
+
+      <li><a target="_top" href="http://adsabs.harvard.edu/abs/2018arXiv180310808H" ><u>"Comprehensive study of ejecta-companion interaction for core-collapse supernovae in massive binaries"</u></a> <br>
+	<u>Ryosuke Hirai</u>, Philipp Podsiadlowski, Shoichi Yamada<br>
+	<span style="color: black;">The Astrophysical Journal, Volume 864, Issue 2, article id. 119, 17pp. (2018)</span><br>
+	arXiv:<a target="_top" href="http://arxiv.org/abs/1803.10808" ><u>1803.10808</u></a>
+      </li>
+
+      <li><a target="_top" href="http://adsabs.harvard.edu/abs/2017MNRAS.469L..94H" ><u>"The Origin of the Possible Massive Black Hole in the Progenitor System of iPTF13bvn"</u></a> <br>
+	<u>Ryosuke Hirai</u><br>
+	<span style="color: black;">Monthly Notices of the Royal Astronomical Society: Letters, Volume 469, Issue 1, p.L94-L98 (2017)</span><br>
+	arXiv:<a target="_top" href="http://arxiv.org/abs/1704.07663" ><u>1704.07663</u></a>
+      </li>
+      
+      <li><a target="_top" href="http://adsabs.harvard.edu/abs/2017MNRAS.466.3775H" ><u>"Formation of the Progenitor of iPTF13bvn Revisited"</u></a> <br>
+	<u>Ryosuke Hirai</u><br>
+	<span style="color: black;">Monthly Notices of the Royal Astronomical Society, Volume 466, Issue 4, p.3775-3783 (2017)</span><br>
+	arXiv:<a target="_top" href="http://arxiv.org/abs/1612.05666" ><u>1612.05666</u></a>
+      </li>
+
+      <li><a target="_top" href="http://adsabs.harvard.edu/abs/2016PhRvD..93h3006H" ><u>"Hyperbolic Self-Gravity Solver for Large Scale Hydrodynamical Simulations"</u></a> <br>
+	<u>Ryosuke Hirai</u>, Hiroki Nagakura, Hirotada Okawa, Kotaro Fujisawa<br>
+	<span style="color: black;">Physical Review D, Volume 93, Issue 8, id.083006 (2016)</span><br>
+	arXiv:<a target="_top" href="http://arxiv.org/abs/1602.05700" ><u>1602.05700</u></a> <br>
+	<span style="color: red;">Note: 論文内の図が<a target="_top" href="http://journals.aps.org/prd/kaleidoscope/prd/93/8/083006"><span style="color: red;">Physical Review D "Kaleidoscope"</span></a>に選ばれました。</span>
+      </li>
+
+      <li><a target="_top" href="http://adsabs.harvard.edu/abs/2015ApJ...805..170H" ><u>"Possible Signatures of Ejecta-Companion Interaction in iPTF 13bvn"</u></a> <br>
+	<u>Ryosuke Hirai</u>, Shoichi Yamada<br>
+	<span style="color: black;">The Astrophysical Journal, Volume 805, Issue 2, article id. 170, 7 pp. (2015)</span><br>
+	arXiv:<a target="_top" href="http://arxiv.org/abs/1504.01845" ><u>1504.01845</u></a>
+      </li>
+
+      <li><a target="_top" href="http://adsabs.harvard.edu/abs/2014ApJ...792...66H" ><u>"The Outcome of Supernovae in Massive Binaries; Removed Mass, and its Separation Dependence"</u></a> <br>
+	<u>Ryosuke Hirai</u>, Hidetomo Sawai, Shoichi Yamada<br>
+	<span style="color: black;">The Astrophysical Journal, Volume 792, Issue 1, article id. 66, 15 pp. (2014)</span><br>
+	arXiv:<a target="_top" href="http://arxiv.org/abs/1404.4297" ><u>1404.4297</u></a>
+      </li>
+    </ol>
+
+    <h2 id="co">共著論文</h2>
+
+    <ol reversed>
+
+      <li><a target="_top" href="https://ui.adsabs.harvard.edu/abs/2019arXiv190907999S/abstract"><u>"Origins of Type Ibn SNe 2006jc/2015G in interacting binaries and implications for pre-SN eruptions"</u></a> <br>
+	Ning-Chen Sun, Jusytn R. Maund, <u>Ryosuke Hirai</u>, Paul A. Crowther, Philipp Podsiadlowski<br>
+	<span style="color: black;">accepted by MNRAS</span><br>
+	arXiv:<a target="_top" href="https://arxiv.org/abs/1909.07999"><u>1909.07999</u></a>
+      </li>
+      <li><a target="_top" href="https://ui.adsabs.harvard.edu/abs/2019MNRAS.485..988O/abstract"><u>"Hydrodynamical simulations and similarity relations for eruptive mass loss from massive stars"</u></a> <br>
+	Stanley P. Owocki, <u>Ryosuke Hirai</u>, Philipp Podsiadlowski, Fabian R. N. Schneider<br>
+	<span style="color: black;">Monthly Notices of the Royal Astronomical Society, Volume 485, Issue 1, p.988-1000 (2019)</span><br>
+	arXiv:<a target="_top" href="https://arxiv.org/abs/1902.06220"><u>1902.06220</u></a>
+      </li>
+      <li><a target="_top" href="http://adsabs.harvard.edu/abs/2018arXiv180904495O" ><u>" The W4 method: a new multi-dimensional root-finding scheme for nonlinear systems of equations"</u></a> <br>
+	Hirotada Okawa, Kotaro Fujisawa, Yu Yamamoto, <u>Ryosuke Hirai</u>, Nobutoshi Yasutake, Hiroki Nagakura, Shoichi Yamada <br>
+	<span style="color: black;">submitted</span><br>
+	arXiv:<a target="_top" href="http://arxiv.org/abs/1809.04495" ><u>1809.04495</u></a>
+      </li>
+      <li><a target="_top" href="http://adsabs.harvard.edu/abs/2017MNRAS.468.5020I" ><u>"Formation pathway of Population III coalescing binary black holes through stable mass transfer"</u></a> <br>
+	Kohei Inayoshi, <u>Ryosuke Hirai</u>, Tomoya Kinugawa, Kenta Hotokezaka<br>
+	<span style="color: black;">Monthly Notices of the Royal Astronomical Society, Volume 468, Issue 4, p.5020-5032 (2017)</span><br>
+	arXiv:<a target="_top" href="http://arxiv.org/abs/1701.04823" ><u>1701.04823</u></a>
+      </li>
+
+    </ol>
+
+    <h2 id="co">その他の記事</h2>
+
+    <ol reversed>
+
+      <li><a target="_top" href="http://www.asj.or.jp/geppou/contents/2018_09.html" ><u>"水素欠乏超新星の親星の起源"</u></a> <br>
+	<u>平井 遼介</u><br>
+	<span style="color: black;">天文月報, 第111巻, 9月号, p.580-588 (2018)</span><br>
+	<span style="color: red;">Note: 表紙の図も担当しました。</span>
+      </li>
+
+    </ol>
+
+
+    <br><br>
+  </body>
+</html>

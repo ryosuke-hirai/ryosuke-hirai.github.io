@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+     $(function() {
+       var nav = $('.menu');
+       var navTop = nav.offset().top;
+       $(window).scroll(function () {
+	 var winTop = $(this).scrollTop();
+	 if (winTop >= navTop) {
+	   nav.addClass('fixed');
+	   $("body").css("margin-top","86px");
+	 } else if (winTop < navTop) {
+	   nav.removeClass('fixed');
+	   $("body").css("margin-top","0px");
+	 }
+       });
+     });
+    </script>
+
+
+    <link rel="stylesheet" type="text/css" href="../hirai.css" />
+    <title>平井遼介のページ</title>
+  </head>
+  <body>
+    <h1>平井 遼介のホームページ</h1>
+    <nav>
+      <ul id="dropmenu" class="menu">
+	<li><a href="./">トップ</a></li>
+	<li><a href="profile.html">プロフィール</a></li>
+	<li><a href="research.html">研究内容</a>
+	  <ul>
+	    <li><a href="research.html#binary">連星系</a></li>
+	    <li><a href="research.html#numerical">数値計算手法</a></li>
+	  </ul>
+	</li>
+	<li><a href="papers.html">投稿論文</a>
+	  <ul>
+	    <li><a href="papers.html#first">主著論文</a></li>
+	    <li><a href="papers.html#co">共著論文</a></li>
+	  </ul>
+	</li>
+	<li><a href="talks.html">学会・研究会</a>
+	  <ul>
+	    <li><a href="talks.html#international">国際研究会</a></li>
+	    <li><a href="talks.html#domestic">国内学会</a></li>
+	    <li><a href="talks.html#workshop">国内研究会</a></li>
+	    <li><a href="talks.html#seminar">セミナー</a></li>
+	    <li><a href="talks.html#ss">サマースクール等</a></li>
+	    <li><a href="talks.html#others">その他</a></li>
+	  </ul>
+	</li>
+	<li><a href="../">English</a></li>
+      </ul>
+    </nav>
+
+    <img class="displayed" src="../mongolia.jpg" alt="モンゴル" width="500px">
+    <p style="text-align:center;">ウランバートル郊外での天体観測</p>
+
+  </body>
+</html>

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="../hirai.css" />
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+     $(function() {
+       var nav = $('.menu');
+       var navTop = nav.offset().top;
+       $(window).scroll(function () {
+	 var winTop = $(this).scrollTop();
+	 if (winTop >= navTop) {
+	   nav.addClass('fixed');
+	   $("body").css("margin-top","86px");<!-- 86=.menu height 43*2-->
+	 } else if (winTop < navTop) {
+	   nav.removeClass('fixed');
+	   $("body").css("margin-top","0px");
+	 }
+       });
+     });
+    </script>
+
+    <title>研究会・学会発表</title>
+  </head>
+  <body>
+    <h1>平井 遼介のホームページ</h1>
+    <nav>
+      <ul id="dropmenu" class="menu">
+	<li><a href="./">トップ</a></li>
+	<li><a href="profile.html">プロフィール</a></li>
+	<li><a href="research.html">研究内容</a>
+	  <ul>
+	    <li><a href="research.html#binary">連星系</a></li>
+	    <li><a href="research.html#numerical">数値計算手法</a></li>
+	  </ul>
+	</li>
+	<li><a href="papers.html">投稿論文</a>
+	  <ul>
+	    <li><a href="papers.html#first">主著論文</a></li>
+	    <li><a href="papers.html#co">共著論文</a></li>
+	  </ul>
+	</li>
+	<li><a href="talks.html">学会・研究会</a>
+	  <ul>
+	    <li><a href="talks.html#international">国際研究会</a></li>
+	    <li><a href="talks.html#domestic">国内学会</a></li>
+	    <li><a href="talks.html#workshop">国内研究会</a></li>
+	    <li><a href="talks.html#seminar">セミナー</a></li>
+	    <li><a href="talks.html#ss">サマースクール等</a></li>
+	    <li><a href="talks.html#others">その他</a></li>
+	  </ul>
+	</li>
+	<li><a href="../talks.html">English</a></li>
+      </ul>
+    </nav>
+
+    <h2 id="international">国際研究会</h2>
+    <ul class="talks">
+      <li><a target="_top" href="http://astro.physics.ncsu.edu/~FOE/">FOE19 Fifty-one Erg</a><br>
+	NCSU Riddick Hall@Raleigh,North Carolina, USA, 2019年5月, 口頭発表 "The appearance of companion stars after supernovae in binaries"<br>
+      </li>
+      <li><a target="_top" href="https://snsnrconnection.wixsite.com/rasmeeting">The Supernova-Supernova Remnant Connection</a><br>
+	Royal Astronomical Society@London, UK, 2019年1月, 聴講のみ <br>
+      </li>
+      <li><a target="_top" href="http://nidiafest.fcaglp.unlp.edu.ar/">Massive Stars and Supernovae</a><br>
+	Gran Hotel Panamericano@Bariloche, Argentina, 2018年11月, 口頭発表 "Systematic study of ejecta-companion interaction"<br>
+      </li>
+      <li><a target="_top" href="https://www.fis.unam.mx/ensenada2018/index.html">Frontiers of the Physics of Massive Stars: from the Main Sequence to LIGO</a><br>
+	UNAM@Ensenada, Mexico, 2018年7月, 口頭発表 "Ejecta-companion interaction in massive binaries"<br>
+      </li>
+      <li><a target="_top" href="https://rasimf2017.wordpress.com/">The Initial Mass Function: From Top to Bottom</a><br>
+	Royal Astronomical Society@London, UK, 2017年11月, 聴講のみ <br>
+      </li>
+      <li><a target="_top" href="http://wwwmpa.mpa-garching.mpg.de/conf/psrc/"> Ringberg Workshop on "The Progenitor-Supernova-Remnant Connection"</a><br>
+	Ringberg Castle@Tegernsee, Germany, 2017年7月,口頭発表 "The binary companion to the progenitor of iPTF13bvn" <br>
+      </li>
+      <li><a target="_top" href="http://www.science.oregonstate.edu/~lazzatid/FOE2017/index.html"> FOE17 Fifty-One Erg</a><br>
+	Oregon State University La Sells Stewart Center@Corvallis,Oregon, USA, 2017年6月,ポスター発表 "Formation Scenario of the Progenitor of iPTF13bvn" <br>
+      </li>
+      <li><a target="_top" href="http://www.yukawa.kyoto-u.ac.jp/english/contents/seminar/detail.php?SNUM=52161"> Molecule-type Workshop on "Transient Universe in the Big Survey Era: Understanding the Nature of Astrophysical Explosive Phenomena"</a><br>
+	京都大学, 2017年1月,口頭発表 "Revisiting the Formation Scenario of the Progenitor of iPTF13bvn" <br>
+      </li>
+      <li><a target="_top" href="https://sites.google.com/site/mraccs2016/home"> 2nd NAOJ-ECT* Workshop on "Many Riddles About Core-Collapse Supernovae: 1 Bethe and Beyond"</a><br>
+	国立天文台, 2016年6-7月,口頭発表 "Lessons on binary star evolution from iPTF13bvn" <br>
+      </li>
+      <li><a target="_top" href="http://www.heap.phys.waseda.ac.jp/kakenhi/NW2015/"> Numazu Workshop 2015: Challenges of modeling supernovae with nuclear data </a><br>
+	三島商工会議所@静岡県, 2015年9月,口頭発表 "Towards the Formation of Binary Neutron Stars",オーガナイズ手伝い（ホームページ、レジストレーション担当） <br>
+      </li>
+      <li><a target="_top" href="http://astro.physics.ncsu.edu/~cfrohli/2015_FOE/"> F.O.E. Fifty-One Erg </a><br>
+	NCSU Riddick Hall@Raleigh,North Carolina, USA, 2015年6月,口頭発表 "Ejecta-Companion interaction in iPTF 13bvn" <br>
+      </li>
+      <li><a target="_top" href="http://mongolia.csp.escience.cn/dct/page/1"> Binary systems, their evolution and environments</a><br>
+	モンゴル日本センター@Ulaan Baatar,Mongolia, 2014年9月, ポスター"Supernovae in Massive Binaries and their Impact on the Companion" <br>
+      </li>
+      <li><a target="_top" href="http://www.cis.fukuoka-u.ac.jp/~kkotake/sn_MM13.html">Multi-Messengers from Core-Collapse Supernovae(MMCOCOS)</a><br>
+	福岡大学, 2013年12月, ポスター"Supernovae in Massive Binaries and its Impact on the Companion" <br>
+      </li>
+      <li><a target="_top" href="http://www.heap.phys.waseda.ac.jp/cnf1203/">Formations of Compact Objects: from the cradle to the grave</a><br>
+	早稲田大学, 2012年3月, オーガナイズ手伝い（会場無線LAN、外国人案内担当）
+    </ul>
+
+    <h2 id="domestic">国内学会</h2>
+    <ul class="talks">
+      <li><a target="_top" href="http://www.asj.or.jp/nenkai/2019b/">天文学会秋季年会</a><br>
+	熊本大学, 2019年9月, 口頭発表"イータ・カリーナと人形星雲の起源" <br>
+      </li>
+      <li><a target="_top" href="http://www.asj.or.jp/nenkai/2017b/">天文学会秋季年会</a><br>
+	北海道大学, 2017年9月, 口頭発表"iPTF13bvnの親星系に存在するブラックホールの起源について" <br>
+      </li>
+      <li><a target="_top" href="http://www.asj.or.jp/nenkai/2017a/">天文学会春季年会</a><br>
+	九州大学, 2017年3月, 口頭発表"iPTF13bvnの連星親星モデルの再検証" <br>
+      </li>
+      <li><a target="_top" href="http://www.asj.or.jp/nenkai/2016b/">天文学会秋季年会</a><br>
+	愛媛大学, 2016年9月, 口頭発表"流体力学シミュレーションにおける高速自己重力計算手法の提案" <br>
+      </li>
+      <li><a target="_top" href="http://www.asj.or.jp/nenkai/2015a/">天文学会春季年会</a><br>
+	大阪大学, 2015年3月, 口頭発表"超新星爆発前後での連星系の生存可能性" <br>
+      </li>
+      <li><a target="_top" href="http://www.asj.or.jp/nenkai/2014b/">天文学会秋季年会</a><br>
+	山形大学, 2014年9月, 口頭発表"大質量連星系内での超新星爆発が伴星に与える影響とそのパラメータ依存性" <br>
+      </li>
+      <li><a target="_top" href="http://www.asj.or.jp/nenkai/2013b/">天文学会秋季年会</a><br>
+	東北大学, 2013年9月, 口頭発表"大質量連星系における超新星爆発が伴星に与える影響"
+    </ul>
+
+    <h2 id="workshop">国内研究会</h2>
+    <ul class="talks">
+      <li><a target="_top" href="http://www2.yukawa.kyoto-u.ac.jp/~rironkon2018/index.html">第31回 理論懇シンポジウム</a><br>
+	基礎物理学研究所, 2018年12月, ポスター発表"イータカリーナの星雲の起源" <br>
+      </li>
+      <li><a target="_top" href="http://www.astro.isas.jaxa.jp/~yinoue/2017ULX_ws/index.html">Ultra-Luminous X-ray Source 研究会 - 多波長で探る降着系の統一描像 -</a><br>
+	宇宙科学研究所, 2017年3月, 口頭発表"BH-NS binary formation in iPTF13bvn" <br>
+      </li>
+      <li><a target="_top" href="https://www.astr.tohoku.ac.jp/rironkon2016/index.html">第29回 理論懇シンポジウム</a><br>
+	東北大学, 2016年12月, 口頭発表"iPTF13bvnの連星親星モデル" <br>
+      </li>
+      <li><a target="_top" href="http://user.keio.ac.jp/~mariko/conference/16binary.html">連星系・変光星・低温度星研究会 2016</a><br>
+	慶應大学, 2016年10月, 口頭発表"超新星iPTF13bvnの連星親星モデル" <br>
+      </li>
+      <li><a target="_top" href="http://www.astro-wakate.org/ss2016/web/index.html">第46回 天文・天体物理若手　夏の学校</a><br>
+	長野県信州・戸倉, 2016年7月, ポスター発表"自己重力流体シミュレーションにおける高速自己重力計算手法" <br>
+      </li>
+      <li><a target="_top" href="https://sites.google.com/site/a0405izunagaoka/">新学術領域A05班合宿</a><br>
+	静岡県伊豆長岡保養所, 2016年1月, 聴講のみ <br>
+      </li>
+      <li><a target="_top" href="http://vega.ess.sci.osaka-u.ac.jp/~rironkon15loc/index.html">第28回 理論懇シンポジウム</a><br>
+	大阪大学, 2015年12月, ポスター発表"超新星爆発によって共通外層状態が誘発される可能性について" <br>
+      </li>
+      <li><a target="_top" href="https://sites.google.com/site/a0405senami/">新学術領域A04/05班合同合宿</a><br>
+	新潟県瀬波温泉, 2015年1月, 口頭発表"中性子星連星の形成に向けた超新星爆発後の連星系の生存可能性" <br>
+      </li>
+      <li><a target="_top" href="http://th.nao.ac.jp/meeting/rironkon14/index.html">第27回 理論懇シンポジウム</a><br>
+	国立天文台, 2014年12月, ポスター発表"iPTF 13bvnにおける伴星の観測的特徴" <br>
+      </li>
+      <li><a target="_top" href="http://th.nao.ac.jp/meeting/dta2014b/index.html">第2回 DTAシンポジウム</a><br>
+	国立天文台, 2014年10月, 口頭発表"大質量連星系内での超新星爆発" <br>
+      </li>
+      <li><a target="_top" href="http://nagataki-lab.riken.jp/workshop/program_SNGRB2014.html">長瀧天体ビッグバン研究室主催　超新星・ガンマ線バースト研究会 2014</a><br>
+	理化学研究所, 2014年8月,　聴講のみ <br>
+      </li>
+      <li><a target="_top" href="http://astro-wakate.sakura.ne.jp/ss2014/web/proceeding/ss14_proceeding.html">第44回 天文・天体物理若手　夏の学校</a><br>
+	長野県信州・戸倉, 2014年7月, 口頭発表"大質量連星系における超新星爆発とその伴星への影響", 事務局収録係 <br>
+      </li>
+      <li><a target="_top" href="http://www-tap.scphys.kyoto-u.ac.jp/rensei_kenkyukai/">連星天文学研究会</a><br>
+	京都大学, 2014年2月, 口頭発表"連星系中の超新星爆発が伴星に与える影響" <br>
+      </li>
+      <li><a target="_top" href="http://astro-wakate.sakura.ne.jp/ss2013/web/proceeding/index.html">第43回 天文・天体物理若手　夏の学校</a><br>
+	宮城蔵王, 2013年7月, 口頭発表"大質量連星系における超新星爆発が伴星に与える影響", コンパクトオブジェクト分科会座長 <br>
+      </li>
+      <li><a target="_top" href="http://user.keio.ac.jp/~mariko/conference/13binary.tokyo.html">連星系東京研究会</a><br>
+	慶應大学日吉キャンパス, 2013年5月, 聴講のみ <br>
+      </li>
+      <li><a target="_top" href="http://www.astro-wakate.org/ss2012/web/proceeding/proceedings/index.html">第42回 天文・天体物理若手　夏の学校</a><br>
+	福井県東尋坊温泉, 2012年8月, 口頭発表"連星系中の超新星爆発"
+    </ul>
+
+    <h2 id="seminar">セミナー</h2>
+    <ul class="talks">
+      <li><a target="_top" href="http://www.isas.jaxa.jp/home/astro_colloq/">ISAS Astrophysics Colloquia</a><br>
+	JAXA, 2019年9月, "The origin of Eta Carinae"</li>
+      <li><a target="_top" href="http://www.gravity.phys.waseda.ac.jp/seminar/pastseminar2019.html">セミナー</a><br>
+	早稲田大学, 2019年9月, "The origin of Eta Carinae"</li>
+      <li><a target="_top" href="http://www.astron.s.u-tokyo.ac.jp/seminar/seminar/seminar2019/">談話会</a><br>
+	東京大学, 2019年9月, "The multiple eruptions of Eta Carinae and its evolution"</li>
+      <li><a target="_top" href="http://kiaa.pku.edu.cn/lunchtalks/2019sepwed">Lunch talk</a><br>
+	KIAA/PKU, Sep 2019, "The multiple eruptions of Eta Carinae"</li>
+      <li>Seminar<br>
+	Yunnan National Astronomical Observatory, Sep 2019, "Hydrodynamical simulations of various processes in massive binary systems (ans triples!)"</li>
+      <li><a target="_top" href="https://www.sheffield.ac.uk/physics/research/astrophysics/seminars">Astronomy seminar</a><br>
+	University of Sheffield, 2019年4月, "Supernova ejecta-companion interaction and its application"</li>
+      <li>Lunch seminar<br>
+	Anton Pannekoek Institute, 2019年3月, "Supernova ejecta-companion interaction and its application"</li>
+      <li>Informal seminar<br>
+	Heidelberg Institute of Theoretical Studies, 2019年3月, "Supernovae in binary systems"</li>
+      <li><a target="_top" href="http://www.butsuri.it-chiba.ac.jp/~yasutake/matter/matter.html">核物理×物性セミナー</a><br>
+	千葉工業大学, 2018年12月, "謎多き星イータカリーナはどのように形成されたのか"</li>
+      <li>Earth Sciences Seminar<br>
+	Oxford U., 2018年10月, "Hyperbolic self-gravity solver and beyond"</li>
+      <li><a target="_top" href="http://web.physics.udel.edu/events/seminar/astronomy-space-physics/supernovae-binary-systems">Astrophysics seminar</a><br>
+	Delaware U., 2018年9月, "Supernovae in binary systems"</li>
+      <li><a target="_top" href="https://www2.physics.ox.ac.uk/research/seminars/series/astrophysics-colloquia?date=2018.6">Astrophysics colloquium</a><br>
+	Oxford U., 2018年6月, "Supernovae in binaries and the stellar widow/ers"</li>
+      <li><a target="_top" href="https://www2.physics.ox.ac.uk/research/seminars/series/%28spi-max%29-coffee?date=2018.1">SPI-MAX</a><br>
+	Oxford U., 2018年1月, "iPTF13bvn: where is its companion?"</li>
+      <li><a target="_top" href="http://seminput.aei.mpg.de/more_info.php?which=8749&mode=rl&talk=index">Seminar</a><br>
+	Albert Einstein Institute@Potsdam-Golm, 2017年12月, "Consequences of Supernovae in Massive Binaries towards the Formation of Double Neutron Star Binaries"</li>
+      <li><a target="_top" href="https://astro.uni-bonn.de/%7Ecabate/Schedule_previous_meetings.html">Stellar Astrophysics group meeting</a><br>
+	Argelander Institute@Bonn,Germmany, 2017年11月, "Ejecta-companion interaction in massive binaries"</li>
+      <li><a target="_top" href="http://th.nao.ac.jp/seminar/?Colloquium">理論コロキウム</a><br>
+	国立天文台, 2017年10月, "Understanding core-collapse supernovae in binaries with various numerical approaches"</li>
+      <li>R-ASTROセミナー<br>
+	理化学研究所, 2017年10月, "The influence of supernovae on the evolution of binary systems"</li>
+      <li><a target="_top" href="http://www.icrr.u-tokyo.ac.jp/hea/group_seminar2017.html">宇宙線研セミナー</a><br>
+	東京大学 宇宙線研究所, 2017年5月, "様々な数値計算手法で探る重力崩壊型超新星爆発"</li>
+      <li><a target="_top" href="http://www2.yukawa.kyoto-u.ac.jp/ws/2016/transient/">Molecule-type Workshop discussion session</a><br>
+	基礎物理学研究所, 2017年1月, "Review on Common Envelope Evolution"</li>
+      <li>宇物非公式セミナー<br>
+	京都大学宇宙物理学研究室, 2016年7月, "Hyperbolic Self-Gravity Solver and Beyond"</li>
+      <li><a target="_top" href="http://www.resceu.s.u-tokyo.ac.jp/getd/seminar.html">茂山研セミナー</a><br>
+	東京大学RESCEU, 2016年1月, "大質量連星系内の超新星爆発が伴星へ与える影響とその観測可能性"</li>
+      <li><a target="_top" href="http://www2.kek.jp/theory-center/theory/archives/seminar/20150721/">KEK理論セミナー</a><br>
+	KEK, 2015年7月, "Ejecta-Companion Interaction in Massive Star Binaries"</li>
+      <li>天体核コロキウム<br>
+	京都大学天体核研究室, 2015年6月, "大質量連星系内の超新星爆発が伴星へ与える影響とその観測可能性"</li>
+      <li>宇物非公式セミナー<br>
+	京都大学宇宙物理学研究室, 2015年6月, "大質量連星系内の超新星爆発が伴星へ与える影響とその観測可能性"</li>
+      <li><a target="_top" href="http://nagataki-lab.riken.jp/seminar2014.html">長瀧研セミナー</a><br>
+	理化学研究所, 2014年4月, "Supernovae in Massive Binaries and its Impact on the Companion"</li>
+    </ul>
+
+
+    <h2 id="ss">サマースクール等</h2>
+    <ul class="talks">
+      <li><a target="_top" href="http://cococubed.asu.edu/mesa_summer_school_2016/index.html">2016 MESA Summer School</a><br>
+	UC Santa Barbara, 2016年8月 <br>
+      </li>
+      <li><a target="_top" href="http://mongolia.csp.escience.cn/dct/page/70007">Autumn School on binary and multiple stars</a><br>
+	National University of Mongolia, 2014年8月 <br>
+      </li>
+      <li><a target="_top" href="http://www.astro.phys.s.chiba-u.ac.jp/hpci/ss2013/">宇宙磁気流体・プラズマシミュレーションサマースクール</a><br>
+	千葉大学, 2013年8月 <br>
+      </li>
+      <li><a target="_top" href="http://www.jicfus.jp/field5/jp/110804-8summerschool_houkoku/">サマースクール「クォークから超新星爆発まで」</a><br>
+	京大基礎物理学研究所, 2011年8月
+    </ul>
+
+    <h2 id="others">その他</h2>
+    <ul class="talks">
+      <li>第二回 Oxbridge+孫正義育英財団交流会<br>
+	Wolfson college, Oxford, 2019年4月, 口頭発表 "宇宙物理学～虚構と現実の狭間で～"</li>
+      <li>第6回ヨーロッパ若手研究者交流会<br>
+	Fleming's Express Hotel Frankfurt, 2018年8月, 口頭発表 "連星系内で起こる様々な爆発現象"</li>
+      <li>理工学術院総合研究所　アーリーバードプログラム　2015年度 若手研究者研究成果報告会　理工研シンポジウム<br>
+	早稲田大学, 2016年3月, 口頭＋ポスター発表 "大質量連星系内での超新星爆発によって熱された伴星が引き起こす様々な現象"</li>
+      <li>理工学術院総合研究所　アーリーバードプログラム　2015年度第一回バードミーティング<br>
+	早稲田大学, 2015年6月, 口頭発表 "宇宙物理学とその応用　～他分野との共同研究に向けて～"</li>
+      <li>早稲田大学系属　早稲田実業学校　課外特別授業　第一回　早実OB・OG大学院生講義<br>
+	早稲田実業学校, 2015年6月, 口頭発表 "連星系と超新星爆発"</li>
+    </ul>
+
+    <div id="bottom">
+
+      <script>
+       <!--
+	      var day = new Date(document.lastModified);
+       var y = day.getFullYear();			// 年を取得
+       var m = day.getMonth() + 1;			// 月を取得
+       var d = day.getDate();				// 日にちを取得
+
+       document.write("最終更新日: " + y + "年" + m + "月" + d + "日");
+       // -->
+      </script>
+    </div>
+
+
+  </body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+     $(function() {
+       var nav = $('.menu');
+       var navTop = nav.offset().top;
+       $(window).scroll(function () {
+	 var winTop = $(this).scrollTop();
+	 if (winTop >= navTop) {
+	   nav.addClass('fixed');
+	   $("body").css("margin-top","86px");
+	 } else if (winTop < navTop) {
+	   nav.removeClass('fixed');
+	   $("body").css("margin-top","0px");
+	 }
+       });
+     });
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="hirai.css" />
+    <title>CV</title>
+  </head>
+  <body>
+    <h1>Ryosuke Hirai's Homepage</h1>
+    <nav>
+      <ul id="dropmenu" class="menu">
+	<li><a href="./">TOP</a></li>
+	<li><a href="profile.html">About me</a></li>
+	<li><a href="research.html">Research</a>
+	  <ul>
+	    <li><a href="research.html#binary">Binary stars</a></li>
+	    <li><a href="research.html#numerical">Numerical techniques</a></li>
+	  </ul>
+	</li>
+	<li><a href="publications.html">Publications</a>
+	  <ul>
+	    <li><a href="publications.html#first">Leading-author papers</a></li>
+	    <li><a href="publications.html#co">Co-authored papers</a></li>
+	  </ul>
+	</li>
+	<li><a href="talks.html">Presentations</a>
+	  <ul>
+	    <li><a href="talks.html#international">International</a></li>
+	    <li><a href="talks.html#japanese">Japanese</a></li>
+	    <li><a href="talks.html#seminar">Seminars</a></li>
+	    <li><a href="talks.html#ss">Summer schools</a></li>
+	    <li><a href="talks.html#others">Others</a></li>
+	  </ul>
+	</li>
+	<li><a href="jp/profile.html">日本語</a></li>
+      </ul>
+    </nav>
+
+
+    <div id="profile">
+      <h2>Profile</h2>
+      <ul  class="profile">
+	<li>Name: Ryosuke Hirai (平井　遼介)</li>
+	<li>Date of Birth: 12 August 1989</li>
+        <li>email: ryosuke.hirai_at_physics.ox.ac.uk (Change _at_ to @)</li>
+      </ul>
+      <h2>Education</h2>
+      <ul  class="profile">
+	<li>2014 Apr. &mdash; 2017 Mar. : Waseda University - Doctor of Science</li>
+	<li>2012 Apr. &mdash; 2014 Mar. : Waseda University - Master of Science</li>
+	<li>2008 Apr. &mdash; 2012 Mar. : Waseda University - Bachelor of Engineering</li>
+      </ul>
+      <h2>Research Experience</h2>
+      <ul  class="profile">
+	<li>2017 Nov. &mdash;    : JSPS Overseas Research Fellowship </li>
+	<li>2017 Apr. &mdash; 2017 Oct. : JSPS Research Fellowship for Young Scientists (PD)</li>
+	<li>2016 Apr. &mdash; 2017 Mar. : JSPS Research Fellowship for Young Scientists (DC2)</li>
+      </ul>
+
+      <h2>Computer Skills</h2>
+      <ul  class="profile">
+	<li>Programming languages: Fortran, Python</li>
+	<li>Codes: Yamazakura (magnetohydrodynamic code), MESA (Stellar evolution code)</li>
+      </ul>
+      <h2>Grants</h2>
+      <ul  class="profile">
+	<li>2018: Hayakawa Satio Fund, Astronomical Society of Japan</li>
+	<li>2015: Research Grant for Young Scientists, Early Bird Program from Waseda Research Institute for Science and Engineering</li>
+      </ul>
+
+      <h2>Curriculum Vitae</h2>
+      <ul  class="profile">
+	<li><a href="cv.pdf">PDF file</a></li>
+      </ul>
+
+    </div>
+  </body>
+</html>

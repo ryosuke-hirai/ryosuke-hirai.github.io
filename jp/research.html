@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+     $(function() {
+       var nav = $('.menu');
+       var navTop = nav.offset().top;
+       $(window).scroll(function () {
+	 var winTop = $(this).scrollTop();
+	 if (winTop >= navTop) {
+	   nav.addClass('fixed');
+	   $("body").css("margin-top","86px");
+	 } else if (winTop < navTop) {
+	   nav.removeClass('fixed');
+	   $("body").css("margin-top","0px");
+	 }
+       });
+     });
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="../hirai.css" />
+    <title>平井遼介のページ</title>
+  </head>
+  <body>
+    <h1>平井 遼介のホームページ</h1>
+    <nav>
+      <ul id="dropmenu" class="menu">
+	<li><a href="./">トップ</a></li>
+	<li><a href="profile.html">プロフィール</a></li>
+	<li><a href="research.html">研究内容</a>
+	  <ul>
+	    <li><a href="research.html#binary">連星系</a></li>
+	    <li><a href="research.html#numerical">数値計算手法</a></li>
+	  </ul>
+	</li>
+	<li><a href="papers.html">投稿論文</a>
+	  <ul>
+	    <li><a href="papers.html#first">主著論文</a></li>
+	    <li><a href="papers.html#co">共著論文</a></li>
+	  </ul>
+	</li>
+	<li><a href="talks.html">学会・研究会</a>
+	  <ul>
+	    <li><a href="talks.html#international">国際研究会</a></li>
+	    <li><a href="talks.html#domestic">国内学会</a></li>
+	    <li><a href="talks.html#workshop">国内研究会</a></li>
+	    <li><a href="talks.html#seminar">セミナー</a></li>
+	    <li><a href="talks.html#ss">サマースクール等</a></li>
+	    <li><a href="talks.html#others">その他</a></li>
+	  </ul>
+	</li>
+	<li><a href="../research.html">English</a></li>
+      </ul>
+    </nav>
+
+
+    <h2>研究内容</h2>
+
+    <h3 id="binary">連星系</h3>
+
+    <p>
+      私は主に連星系について研究しています。特に、太陽の８倍以上重い星は最後に超新星爆発を起こすことが知られていますが、そのような大質量星を含むような連星系に注目しています。これまでは超新星爆風が伴星に当たった際にどのようなことが起こるかを調べてきました。またiPTF13bvnという超新星について、爆発までにどのような進化経路を辿ったかなども調べています。
+    </p>
+
+    <figure>
+      <img class="displayed" src="../densitymovie2.gif" alt="movie" width="480">
+      <img class="displayed" src="../densitymovie.gif" alt="movie" width="320">
+      <figcaption>爆風衝突効果に関する数値流体シミュレーション (<a href="http://adsabs.harvard.edu/abs/2018arXiv180310808H">Hirai, Podsiadlowski & Yamada 2018</a>, <a href="http://adsabs.harvard.edu/abs/2014ApJ...792...66H">Hirai, Sawai & Yamada 2014</a>).</figcaption>
+    </figure>
+
+    <h3 id="numerical">数値計算手法</h3>
+
+    <p>
+      宇宙物理学において定量的な研究を行う際には多かれ少なかれコンピューターを使った数値計算が不可欠になってきます。しかし、多くの場合コンピューターパワーが足りないため解像度を粗くしたり近似を行ったりして計算を行っています。私は数値計算の高速化・効率化に関する研究を行っています。特に、自己重力流体シミュレーションについては劇的な高速化に成功しました。
+    </p>
+
+    <figure>
+      <img class="displayed" src="../HGsolver.gif" alt="movie" width="320">
+      <figcaption>我々が開発した「双曲自己重力解法」を使った星の正面衝突シミュレーション (<a href="http://adsabs.harvard.edu/abs/2016PhRvD..93h3006H">Hirai, Nagakura, Okawa & Fujisawa 2016</a>).</figcaption>
+    </figure>
+
+
+  </body>
+</html>

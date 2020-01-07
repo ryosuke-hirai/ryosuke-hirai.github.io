@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript">
+     $(function() {
+       var nav = $('.menu');
+       var navTop = nav.offset().top;
+       $(window).scroll(function () {
+	 var winTop = $(this).scrollTop();
+	 if (winTop >= navTop) {
+	   nav.addClass('fixed');
+	   $("body").css("margin-top","86px");
+	 } else if (winTop < navTop) {
+	   nav.removeClass('fixed');
+	   $("body").css("margin-top","0px");
+	 }
+       });
+     });
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="hirai.css" />
+    <title>Ryosuke Hirai's Homepage</title>
+  </head>
+  <body>
+    <h1>Ryosuke Hirai's Homepage</h1>
+    <nav>
+      <ul id="dropmenu" class="menu">
+	<li><a href="./">TOP</a></li>
+	<li><a href="profile.html">About me</a></li>
+	<li><a href="research.html">Research</a>
+	  <ul>
+	    <li><a href="research.html#binary">Binary stars</a></li>
+	    <li><a href="research.html#numerical">Numerical techniques</a></li>
+	  </ul>
+	</li>
+	<li><a href="publications.html">Publications</a>
+	  <ul>
+	    <li><a href="publications.html#first">Leading-author papers</a></li>
+	    <li><a href="publications.html#co">Co-authored papers</a></li>
+	  </ul>
+	</li>
+	<li><a href="talks.html">Presentations</a>
+	  <ul>
+	    <li><a href="talks.html#international">International</a></li>
+	    <li><a href="talks.html#japanese">Japanese</a></li>
+	    <li><a href="talks.html#seminar">Seminars</a></li>
+	    <li><a href="talks.html#ss">Summer schools</a></li>
+	    <li><a href="talks.html#others">Others</a></li>
+	  </ul>
+	</li>
+	<li><a href="jp">日本語</a></li>
+      </ul>
+    </nav>
+
+    <p style="text-align:center;">
+      I'm a postdoctoral research fellow in the Astrophysics department of the University of Oxford.<br>
+      My main research interests are on core-collapse supernovae and binarity.
+    </p>
+    
+    <img class="displayed" src="mongolia.jpg" alt="Mongolia" width="500px">
+    <p style="text-align:center;">Star gazing in Ulaanbaatar</p>
+
+  </body>
+</html>
