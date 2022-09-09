@@ -33,8 +33,10 @@
 	<li><a href="profile.html">プロフィール</a></li>
 	<li><a href="research.html">研究内容</a>
 	  <ul>
-	    <li><a href="research.html#binary">連星系</a></li>
-	    <li><a href="research.html#numerical">数値計算手法</a></li>
+	    <li><a href="research.html#supenova">連星系内の超新星爆発</a></li>
+	    <li><a href="research.html#merger">連星合体</a></li>
+	    <li><a href="research.html#xray">X線連星</a></li>
+    	    <li><a href="research.html#numerical">数値計算手法</a></li>
 	  </ul>
 	</li>
 	<li><a href="papers.html">投稿論文</a>
@@ -61,16 +63,16 @@
 
     <h2>研究内容</h2>
 
-    <h3 id="binary">連星系内の超新星爆発</h3>
+    <h3 id="supernova">連星系内の超新星爆発</h3>
 
     <p>
       私は主に連星系について研究しています。特に、太陽の８倍以上重い星は最後に超新星爆発を起こすことが知られていますが、そのような大質量星を含むような連星系に注目しています。これまでは超新星爆風が伴星に当たった際にどのようなことが起こるかを調べてきました。またiPTF13bvnやCassiopeia A、SN2006jc、SN2019yvrという超新星について、爆発までにどのような進化経路を辿ったかなども調べています。
     </p>
 
     <figure>
-      <img class="displayed" src="../densitymovie2.gif" alt="movie" width="480">
-      <img class="displayed" src="../Density.gif" alt="movie" width="480">
-      <figcaption>爆風衝突効果に関する数値流体シミュレーション (<a href="https://ui.adsabs.harvard.edu/abs/2020MNRAS.499.1154H/abstract">Hirai et al. 2020</a>, <a href="http://adsabs.harvard.edu/abs/2018arXiv180310808H">Hirai, Podsiadlowski & Yamada 2018</a>, <a href="http://adsabs.harvard.edu/abs/2014ApJ...792...66H">Hirai, Sawai & Yamada 2014</a>).</figcaption>
+      <video class="center" src="../densitymovie2.mp4" width="480" controls playsinline muted autoplay loop>Sorry, your browser doesn't support embedded videos</video>
+      <video class="center" src="../Density.mp4" width="480" controls playsinline muted autoplay loop>Sorry, your browser doesn't support embedded videos</video>
+      <figcaption>爆風衝突効果に関する数値流体シミュレーション (<a href="https://ui.adsabs.harvard.edu/abs/2020MNRAS.499.1154H/abstract">Hirai et al. 2020</a>, <a href="https://ui.adsabs.harvard.edu/abs/2018ApJ...864..119H/abstract">Hirai, Podsiadlowski & Yamada 2018</a>, <a href="http://adsabs.harvard.edu/abs/2014ApJ...792...66H">Hirai, Sawai & Yamada 2014</a>).</figcaption>
     </figure>
 
     <figure>
@@ -79,7 +81,17 @@
       <figcaption>超新星iPTF13bvnの親星形成に関する連星進化計算 (<a href="https://ui.adsabs.harvard.edu/abs/2015ApJ...805..170H/abstract">Hirai & Yamada 2015</a>, <a href="https://ui.adsabs.harvard.edu/abs/2017MNRAS.466.3775H/abstract">Hirai 2017a</a>,<a href="https://ui.adsabs.harvard.edu/abs/2017MNRAS.469L..94H/abstract">Hirai 2017b</a>).</figcaption>
     </figure>
 
-    <h3 id="numerical">連星合体</h3>
+    <p>
+      超新星直後に生まれた中性子星は一般に高速なキックを受けますが、それが伴星との衝突に繋がった場合にどういう現象が起こるかについても探っています。特に、中性子星が伴星の外層を貫通する場合に注目していて、それによって超高速逃亡星、パルサー惑星、でこぼこした超高輝度超新星光度曲線など面白い現象を引き起こしうることがわかりました。
+    </p>
+
+    <figure>
+      <video class="center" src="../NS-MS_3D.mp4" width="480" controls playsinline muted autoplay loop>Sorry, your browser doesn't support embedded videos</video>
+      <video class="center" src="../Movie_M5_1.mp4" width="480" controls playsinline muted autoplay loop>Sorry, your browser doesn't support embedded videos</video>
+      <figcaption>中性子星と伴星との衝突に関する三次元数値流体シミュレーション (<a href="https://ui.adsabs.harvard.edu/abs/2022arXiv220800915H/abstract">Hirai & Podsiadlowski 2022</a>).</figcaption>
+    </figure>
+
+    <h3 id="merger">連星合体</h3>
 
     <p>
       連星系内にある星は時に合体することがあります。私は大質量星同士の合体現象について研究を行っています。特に、イータカリーナと呼ばれる特異な星の形成過程として大質量三重連星内での合体現象に注目して数値シミュレーションなどによるモデル化を行っています。
@@ -87,13 +99,13 @@
 
     <figure>
       <video class="center" src="../eruption.mp4" width="480" controls playsinline muted autoplay loop>Sorry, your browser doesn't support embedded videos</video>
-      <video class="center" src="../homunculus.mp4" width="480" conrols playsinline muted autoplay>Sorry, your browser doesn't support embedded videos</video>
+      <video class="center" src="../homunculus.mp4" width="480" controls playsinline muted autoplay loop>Sorry, your browser doesn't support embedded videos</video>
       <figcaption>連星合体による爆発現象及びその後の超臨界恒星風による掃き集めを再現した流体シミュレーション。 (<a href="https://ui.adsabs.harvard.edu/abs/2020arXiv201112434H/abstract">Hirai et al. 2021</a>).</figcaption>
       <video class="center" src="../spray_dist.mp4" width="480" controls playsinline muted autoplay loop>Sorry, your browser doesn't support embedded videos</video>
-      <figcaption>三体力学計算とN体シミュレーションを駆使したイータカリーナのOuter Ejectaの再現 (<a href="https://ui.adsabs.harvard.edu/abs/2020arXiv201112434H/abstract">Hirai et al. 2021</a>).
+      <figcaption>三体力学計算とN体シミュレーションを駆使したイータカリーナのOuter Ejectaの再現 (<a href="https://ui.adsabs.harvard.edu/abs/2021MNRAS.503.4276H/abstract">Hirai et al. 2021</a>).
     </figure>
 
-    <h3 id="numerical">X線連星</h3>
+    <h3 id="xray">X線連星</h3>
 
     <p>
       大質量X線連星とは、中性子星やブラックホールなどのコンパクト天体が伴星から吹く恒星風の一部を降着することで光る天体である。私はこのような近接連星で潮汐力が恒星風の駆動及び降着にどのような影響を与えるかを探っています。
@@ -111,7 +123,7 @@
     </p>
 
     <figure>
-      <img class="displayed" src="../HGsolver.gif" alt="movie" width="320">
+      <video class="center" src="../HGsolver.mp4" width="480" controls playsinline muted autoplay loop>Sorry, your browser doesn't support embedded videos</video>
       <figcaption>我々が開発した「双曲自己重力解法」を使った星の正面衝突シミュレーション (<a href="http://adsabs.harvard.edu/abs/2016PhRvD..93h3006H">Hirai, Nagakura, Okawa & Fujisawa 2016</a>).</figcaption>
     </figure>
 
