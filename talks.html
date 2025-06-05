@@ -47,45 +47,45 @@
     <h2 id="first">Presentations</h2>
     
     <details style="margin-left: 20px;">
-      <summary><strong>フィルター条件を表示 / 非表示</strong></summary>
+      <summary><strong>Apply filters</strong></summary>
      
       <fieldset>
-        <legend>言語:</legend>
-        <label><input type="checkbox" class="talk-filter" data-filter="lang" value="en" checked> 英語</label>
-        <label><input type="checkbox" class="talk-filter" data-filter="lang" value="ja" checked> 日本語</label>
+        <legend>Language:</legend>
+        <label><input type="checkbox" class="talk-filter" data-filter="lang" value="en" checked> English</label>
+        <label><input type="checkbox" class="talk-filter" data-filter="lang" value="ja" checked> Japanese</label>
       </fieldset>
      
       <fieldset>
-        <legend>口頭/ポスター/その他:</legend>
-        <label><input type="checkbox" class="talk-filter" data-filter="type" value="oral" checked> 口頭</label>
-        <label><input type="checkbox" class="talk-filter" data-filter="type" value="poster" checked> ポスター</label>
-        <label><input type="checkbox" class="talk-filter" data-filter="type" value="none" checked> 講演なし</label>
+        <legend>Presentation type:</legend>
+        <label><input type="checkbox" class="talk-filter" data-filter="type" value="oral" checked> Oral</label>
+        <label><input type="checkbox" class="talk-filter" data-filter="type" value="poster" checked> Poster</label>
+        <label><input type="checkbox" class="talk-filter" data-filter="type" value="none" checked> None</label>
       </fieldset>
      
       <fieldset>
-        <legend>種別:</legend>
-        <label><input type="checkbox" class="talk-filter" data-filter="category" value="conference" checked> 研究会</label>
-        <label><input type="checkbox" class="talk-filter" data-filter="category" value="seminar" checked> セミナー</label>
-        <label><input type="checkbox" class="talk-filter" data-filter="category" value="school" checked> サマースクール</label>
-        <label><input type="checkbox" class="talk-filter" data-filter="category" value="other" checked> その他</label>
+        <legend>Event type:</legend>
+        <label><input type="checkbox" class="talk-filter" data-filter="category" value="conference" checked>Conference/Workshop</label>
+        <label><input type="checkbox" class="talk-filter" data-filter="category" value="seminar" checked> Seminar/Colloquium</label>
+        <label><input type="checkbox" class="talk-filter" data-filter="category" value="school" checked> School</label>
+        <label><input type="checkbox" class="talk-filter" data-filter="category" value="other" checked> Other</label>
       </fieldset>
      
       <fieldset>
-        <legend>招待:</legend>
-        <label><input type="checkbox" class="talk-filter" data-filter="invited" value="yes" checked> 招待あり</label>
-        <label><input type="checkbox" class="talk-filter" data-filter="invited" value="no" checked> 招待なし</label>
+        <legend>Invitation:</legend>
+        <label><input type="checkbox" class="talk-filter" data-filter="invited" value="yes" checked> Invited</label>
+        <label><input type="checkbox" class="talk-filter" data-filter="invited" value="no" checked> Contributed</label>
       </fieldset>
      
       <fieldset>
-        <legend>主催:</legend>
-        <label><input type="checkbox" class="talk-filter" data-filter="organizer" value="yes" checked> 主催</label>
-        <label><input type="checkbox" class="talk-filter" data-filter="organizer" value="no" checked> 参加のみ</label>
+        <legend>Organized:</legend>
+        <label><input type="checkbox" class="talk-filter" data-filter="organizer" value="yes" checked> Organizer</label>
+        <label><input type="checkbox" class="talk-filter" data-filter="organizer" value="no" checked> Attendee</label>
       </fieldset>
      
       <fieldset class="reset-box">
-        <legend>並び順:</legend>
-        <button id="toggle-sort" type="button">日付：降順 ▼</button>
-        <button id="reset-filters" type="button">リセット</button>
+        <legend>Ordering:</legend>
+        <button id="toggle-sort" type="button">Date: Descending ▼</button>
+        <button id="reset-filters" type="button">Reset filters</button>
       </fieldset>
 
     </details>
@@ -1176,7 +1176,7 @@
      
         // ソートボタンの表示更新
         const btn = document.getElementById('toggle-sort');
-        btn.textContent = `日付：${sortDescending ? '降順 ▼' : '昇順 ▲'}`;
+        btn.textContent = `Date: ${sortDescending ? 'Descending ▼' : 'Ascending ▲'}`;
       }
 
       document.getElementById('reset-filters').addEventListener('click', () => {
