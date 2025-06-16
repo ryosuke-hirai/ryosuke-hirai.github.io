@@ -71,6 +71,16 @@
         </legend>
       </fieldset>
 
+      <fieldset>
+        <legend>期間で絞り込み:</legend>
+        <label>開始:
+          <input type="date" id="start-date" />
+        </label>
+        <label>終了:
+          <input type="date" id="end-date" />
+        </label>
+      </fieldset>
+
       <fieldset class="reset-box">
         <legend>並び順:</legend>
         <button id="toggle-sort" type="button">日付：降順 ▼</button>
@@ -184,13 +194,13 @@
         arXiv:<a target="_top" href="https://arxiv.org/abs/2503.08768"><u>2503.08768</u></a>
       </li>
 
-      <li data-date="2024" data-author="co" data-peer="peer" data-type="journal"><a target="_top" href="https://ui.adsabs.harvard.edu/abs/2024arXiv241110993D/abstract"><u>"Evidence of non-Solar elemental composition in the clocked bursts from SRGA J144459.2−604207"</u></a><br>
+      <li data-date="2025" data-author="co" data-peer="peer" data-type="journal"><a target="_top" href="https://ui.adsabs.harvard.edu/abs/2024arXiv241110993D/abstract"><u>"Evidence of non-Solar elemental composition in the clocked bursts from SRGA J144459.2−604207"</u></a><br>
 	Akira Dohi, Nobuya Nishimura, <u>Ryosuke Hirai</u>, Tomoshi Takeda, Wataru Iwatari, Toru Tamagawa, Amira Aoyama, Teruaki Enoto, Satoko Iwata, Yo Kato, Takao Kitaguchi, Tatehiro Mihara, Naoyuki Ota, Takuya Takahashi, Sota Watanabe, Kaede Yamasaki<br>
 	<span style="color: black;">accepted for publication in PASJL</span><br>
         arXiv:<a target="_top" href="https://arxiv.org/abs/2411.10993"><u>2411.10993</u></a>
       </li>
 
-      <li data-date="2024" data-author="co" data-peer="peer" data-type="journal"><a target="_top" href="https://ui.adsabs.harvard.edu/abs/2024arXiv241110992T/abstract"><u>"NinjaSat monitoring of Type-I X-ray bursts from the clocked burster SRGA J144459.2−604207"</u></a><br>
+      <li data-date="2025" data-author="co" data-peer="peer" data-type="journal"><a target="_top" href="https://ui.adsabs.harvard.edu/abs/2024arXiv241110992T/abstract"><u>"NinjaSat monitoring of Type-I X-ray bursts from the clocked burster SRGA J144459.2−604207"</u></a><br>
 	Tomoshi Takeda, Toru Tamagawa, Teruaki Enoto, Takao Kitaguchi, Yo Kato, Tatehiro Mihara, Wataru Iwakiri, Masaki Numazawa, Naoyuki Ota, Sota Watanabe, Arata Jujo, Amira Aoyama, Satoko Iwata, Takuya Takahashi, Kaede Yamasaki, Chin-Ping Hu, Hiromitsu Takahashi, Akira Dohi, Nobuya Nishimura, <u>Ryosuke Hirai</u>, Yuto Yoshida, Hiroki Sato, Syoki Hayashi, Yuanhui Zhou, Keisuke Uchiyama, Hirokazu Odaka, Tsubasa Tamba, Kentaro Taniguchi<br>
 	<span style="color: black;">accepted for publication in PASJL</span><br>
         arXiv:<a target="_top" href="https://arxiv.org/abs/2411.10992"><u>2411.10992</u></a>
@@ -405,7 +415,6 @@
       </li>
 
     </ol>
-    
 
   <script>
     let sortDescending = true;
@@ -420,8 +429,16 @@
           if (!conditions[key]) conditions[key] = new Set();
           if (cb.checked) conditions[key].add(cb.value);
         });
-     
+
+        // 期間フィルターを取得
+        const startDateStr = document.getElementById('start-date').value;
+        const endDateStr = document.getElementById('end-date').value;
+        const startDate = startDateStr ? new Date(startDateStr) : null;
+        const endDate = endDateStr ? new Date(endDateStr) : null;
+
         const items = Array.from(document.querySelectorAll('ol.pubs li'));
+
+        let anyVisible = false;
 
         items.forEach(item => {
           let show = true;
@@ -432,7 +449,17 @@
               break;
             }
           }
-          item.style.display = show ? '' : 'none';
+
+          // 期間フィルター（YYYY-MM）
+          const itemDate = item.dataset.date ? new Date(item.dataset.date) : null;
+          if (itemDate) {
+            if (startDate && itemDate < startDate) show = false;
+            if (endDate && itemDate > endDate) show = false;
+          }
+       
+          item.style.display = show ? "" : "none";
+          if (show) anyShown = true;
+
         });
 
         // 並べ替え
@@ -453,7 +480,8 @@
       }
 
       document.getElementById('reset-filters').addEventListener('click', () => {
-        document.querySelectorAll('.pub-filter').forEach(cb => cb.checked = true);
+      document.querySelectorAll('.pub-filter').forEach(cb => cb.checked = true);
+
         updatePubList();
       });
 
@@ -466,9 +494,30 @@
         sortDescending = !sortDescending;
         updatePubList();
       });
-     
+
+      document.getElementById('start-date').addEventListener('change', updatePubList);
+      document.getElementById('end-date').addEventListener('change', updatePubList);
+
+      // リセットボタンで日付もリセット
+      document.getElementById('reset-filters').addEventListener('click', () => {
+
+        // チェックボックスを全部ONに戻す
+        document.querySelectorAll('.pub-filter').forEach(cb => cb.checked = true);
+       
+        // 日付入力を空にする
+        document.getElementById('start-date').value = '';
+        document.getElementById('end-date').value = '';
+       
+        // 並び順をデフォルト（降順）に戻す
+        sortDescending = true;
+       
+        // リスト更新
+        updatePubList();
+      });
+    
       // 初期化
       updatePubList();
+
     </script>
 
     <div id="bottom">
