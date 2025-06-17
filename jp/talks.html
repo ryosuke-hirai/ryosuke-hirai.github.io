@@ -81,6 +81,16 @@
         <label><input type="checkbox" class="talk-filter" data-filter="organizer" value="no" checked> 参加のみ</label>
       </fieldset>
      
+      <fieldset>
+        <legend>期間で絞り込み:</legend>
+        <label>開始:
+          <input type="date" id="start-date" />
+        </label>
+        <label>終了:
+          <input type="date" id="end-date" />
+        </label>
+      </fieldset>
+
       <fieldset class="reset-box">
         <legend>並び順:</legend>
         <button id="toggle-sort" type="button">日付：降順 ▼</button>
@@ -1151,6 +1161,7 @@
     </ul>
    </li>
   </ol>
+
   <script>
    let sortDescending = true;
      
@@ -1165,9 +1176,17 @@
           if (cb.checked) conditions[key].add(cb.value);
         });
      
+        // 期間フィルターを取得
+        const startDateStr = document.getElementById('start-date').value;
+        const endDateStr = document.getElementById('end-date').value;
+        const startDate = startDateStr ? new Date(startDateStr) : null;
+        const endDate = endDateStr ? new Date(endDateStr) : null;
+
         const items = Array.from(document.querySelectorAll('ol.talks li'));
      
-        items.forEach(item => {
+        let anyVisible = false;
+
+	items.forEach(item => {
           let show = true;
           for (const key in conditions) {
             const val = item.dataset[key];
@@ -1176,7 +1195,17 @@
               break;
             }
           }
-          item.style.display = show ? '' : 'none';
+
+          // 期間フィルター（YYYY-MM）
+          const itemDate = item.dataset.date ? new Date(item.dataset.date) : null;
+          if (itemDate) {
+            if (startDate && itemDate < startDate) show = false;
+            if (endDate && itemDate > endDate) show = false;
+          }
+       
+          item.style.display = show ? "" : "none";
+          if (show) anyShown = true;
+
         });
      
         // 並べ替え
@@ -1193,11 +1222,11 @@
      
         // ソートボタンの表示更新
         const btn = document.getElementById('toggle-sort');
-        btn.textContent = `日付：${sortDescending ? '降順 ▼' : '昇順 ▲'}`;
+        btn.textContent = `Date: ${sortDescending ? 'Descending ▼' : 'Ascending ▲'}`;
       }
 
       document.getElementById('reset-filters').addEventListener('click', () => {
-        document.querySelectorAll('.talk-filter').forEach(cb => cb.checked = true);
+      document.querySelectorAll('.talk-filter').forEach(cb => cb.checked = true);
         updateTalkList();
       });
 
@@ -1211,9 +1240,31 @@
         updateTalkList();
       });
      
+      document.getElementById('start-date').addEventListener('change', updateTalkList);
+      document.getElementById('end-date').addEventListener('change', updateTalkList);
+
+      // リセットボタンで日付もリセット
+      document.getElementById('reset-filters').addEventListener('click', () => {
+
+      // チェックボックスを全部ONに戻す
+      document.querySelectorAll('.talks-filter').forEach(cb => cb.checked = true);
+       
+        // 日付入力を空にする
+        document.getElementById('start-date').value = '';
+        document.getElementById('end-date').value = '';
+       
+        // 並び順をデフォルト（降順）に戻す
+        sortDescending = true;
+       
+        // リスト更新
+        updateTalkList();
+      });
+
       // 初期化
       updateTalkList();
+
   </script>
+
   <div id="bottom">
    <script>
     var day = new Date(document.lastModified);
