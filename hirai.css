@@ -120,6 +120,15 @@ ul.profile{
   list-style:none;
 }
 
+.profile-photo {
+  float: right;
+  width: 280px;     /* adjust size */
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  border-radius: 6px; /* optional */
+}
+
 ul.talks li{
   /*	margin:0 0 1em ;*/
   margin:0 auto 1em auto;
