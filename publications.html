@@ -22,6 +22,195 @@
     </script>
 
     <link rel="stylesheet" type="text/css" href="hirai.css" />
+
+    <style>
+      /* Collapsible author lists */
+      .author-toggle {
+        border: 0;
+        padding: 0;
+        margin: 0;
+        background: none;
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+        text-align: left;
+      }
+
+      .author-toggle:hover,
+      .author-toggle:focus {
+        text-decoration: underline;
+      }
+
+      .author-toggle::after {
+        content: " ▸";
+        font-size: 0.85em;
+      }
+
+      .author-toggle[aria-expanded="true"]::after {
+        content: " ▾";
+      }
+
+      .author-hide-toggle::after {
+        content: "";
+      }
+
+      .author-hide-toggle {
+        margin-left: 0.7em;
+      }
+
+      .author-full {
+        display: none;
+      }
+
+      .author-full.is-expanded {
+        display: inline;
+      }
+    </style>
+
+    <script type="text/javascript">
+      /*
+       * Collapse long author lists.
+       * The cutoff is chosen interactively via the "Author list" selector
+       * in "Apply filters" (radio buttons named "author-limit"). DEFAULT_AUTHOR_LIMIT is the
+       * initial value and what "Reset filters" returns to.
+       */
+      document.addEventListener("DOMContentLoaded", function () {
+        const DEFAULT_AUTHOR_LIMIT = 10;
+        const COMPACT_AUTHORS = 3; // authors shown in the collapsed form
+        const limitRadios = document.querySelectorAll('input[name="author-limit"]');
+
+        // Match all common Hirai author-name orderings used in this publication list.
+        function isHiraiAuthor(author) {
+          const normalized = author.replace(/\s+/g, " ").trim();
+          return /^(?:Ryosuke\s+Hirai|R\.?\s+Hirai|Hirai\s+R\.?)$/i.test(normalized);
+        }
+
+        // One-time preparation: wrap each author list and remember its original HTML,
+        // so the list can be rebuilt whenever the limit changes.
+        const pubs = [];
+        document.querySelectorAll("ol.pubs > li").forEach(function (pub) {
+          const firstBr = pub.querySelector("br");
+          if (!firstBr) return;
+
+          // The author list is the content between the first and second <br>.
+          const authorNodes = [];
+          let node = firstBr.nextSibling;
+          while (node && !(node.nodeType === 1 && node.tagName === "BR")) {
+            authorNodes.push(node);
+            node = node.nextSibling;
+          }
+          if (!authorNodes.length) return;
+
+          const wrapper = document.createElement("span");
+          wrapper.className = "author-list";
+          authorNodes.forEach(function (n) { wrapper.appendChild(n); });
+          firstBr.parentNode.insertBefore(wrapper, firstBr.nextSibling);
+
+          const authors = wrapper.textContent
+            .replace(/\s+/g, " ")
+            .trim()
+            .split(",")
+            .map(function (a) { return a.trim(); })
+            .filter(Boolean);
+
+          pubs.push({ wrapper: wrapper, originalHTML: wrapper.innerHTML, authors: authors });
+        });
+
+        // Rebuild every author list for the given limit (Infinity = never collapse).
+        function applyAuthorLimit(limit) {
+          pubs.forEach(function (p) {
+            const wrapper = p.wrapper;
+            const authors = p.authors;
+
+            // Restore the original (uncollapsed) author HTML first.
+            wrapper.innerHTML = p.originalHTML;
+
+            if (authors.length <= limit) return;
+
+            const hiraiAuthor = authors.find(isHiraiAuthor) || null;
+
+            // Keep the existing author HTML intact in the expandable section.
+            const full = document.createElement("span");
+            full.className = "author-full";
+            while (wrapper.firstChild) {
+              full.appendChild(wrapper.firstChild);
+            }
+            wrapper.appendChild(full);
+
+            const shownAuthors = authors.slice(0, COMPACT_AUTHORS);
+            const hiraiAlreadyShown = shownAuthors.some(isHiraiAuthor);
+
+            // Underline Hirai wherever he appears among the shown authors.
+            let compactText = shownAuthors.map(function (a) {
+              const safe = a.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+              return isHiraiAuthor(a) ? "<u>" + safe + "</u>" : safe;
+            }).join(", ") + ", et al.";
+            if (hiraiAuthor && !hiraiAlreadyShown) {
+              compactText += " (including <u>" + hiraiAuthor + "</u>)";
+            }
+
+            const showToggle = document.createElement("button");
+            showToggle.type = "button";
+            showToggle.className = "author-toggle";
+            showToggle.setAttribute("aria-expanded", "false");
+            showToggle.setAttribute("aria-label", "Show all authors");
+            showToggle.innerHTML = compactText;
+
+            const hideToggle = document.createElement("button");
+            hideToggle.type = "button";
+            hideToggle.className = "author-toggle author-hide-toggle";
+            hideToggle.setAttribute("aria-expanded", "true");
+            hideToggle.setAttribute("aria-label", "Hide full author list");
+            hideToggle.textContent = "(Hide author list)";
+            hideToggle.style.display = "none";
+
+            wrapper.insertBefore(showToggle, full);
+            wrapper.appendChild(hideToggle);
+
+            showToggle.addEventListener("click", function () {
+              full.classList.add("is-expanded");
+              showToggle.style.display = "none";
+              hideToggle.style.display = "inline";
+              showToggle.setAttribute("aria-expanded", "true");
+              hideToggle.setAttribute("aria-expanded", "true");
+            });
+
+            hideToggle.addEventListener("click", function () {
+              full.classList.remove("is-expanded");
+              hideToggle.style.display = "none";
+              showToggle.style.display = "inline";
+              showToggle.setAttribute("aria-expanded", "false");
+              hideToggle.setAttribute("aria-expanded", "false");
+            });
+          });
+        }
+
+        function currentLimit() {
+          const checked = document.querySelector('input[name="author-limit"]:checked');
+          const v = checked ? checked.value : String(DEFAULT_AUTHOR_LIMIT);
+          return v === "none" ? Infinity : parseInt(v, 10);
+        }
+
+        limitRadios.forEach(function (r) {
+          r.addEventListener("change", function () {
+            applyAuthorLimit(currentLimit());
+          });
+        });
+
+        // "Reset filters" also restores the default limit.
+        const resetBtn = document.getElementById("reset-filters");
+        if (resetBtn) {
+          resetBtn.addEventListener("click", function () {
+            limitRadios.forEach(function (r) {
+              r.checked = (r.value === String(DEFAULT_AUTHOR_LIMIT));
+            });
+            applyAuthorLimit(DEFAULT_AUTHOR_LIMIT);
+          });
+        }
+
+        applyAuthorLimit(currentLimit());
+      });
+    </script>
     <title>Publications</title>
   </head>
   <body>
@@ -61,7 +250,6 @@
           <label><input type="checkbox" class="pub-filter" data-filter="peer" value="peer" checked> Peer-reviewed</label>
 	  <label><input type="checkbox" class="pub-filter" data-filter="peer" value="under" checked> Under review</label>
 	  <label><input type="checkbox" class="pub-filter" data-filter="peer" value="nonpeer" checked> None</label>
-        </legend>
       </fieldset>
 
       <fieldset>
@@ -69,7 +257,16 @@
           <label><input type="checkbox" class="pub-filter" data-filter="type" value="journal" checked>Journal</label>
 	  <label><input type="checkbox" class="pub-filter" data-filter="type" value="proceeding" checked>Conference proceedings</label>
 	  <label><input type="checkbox" class="pub-filter" data-filter="type" value="other" checked> Other</label>
-        </legend>
+      </fieldset>
+
+      <fieldset>
+        <legend>Maximum number of authors displayed</legend>
+        <label><input type="radio" name="author-limit" value="3"> 3</label>
+        <label><input type="radio" name="author-limit" value="5"> 5</label>
+        <label><input type="radio" name="author-limit" value="10" checked> 10</label>
+        <label><input type="radio" name="author-limit" value="15"> 15</label>
+        <label><input type="radio" name="author-limit" value="20"> 20</label>
+        <label><input type="radio" name="author-limit" value="none"> Never collapse</label>
       </fieldset>
 
       <fieldset>
@@ -167,7 +364,7 @@
 	<u>Ryosuke Hirai</u>, Hiroki Nagakura, Hirotada Okawa, Kotaro Fujisawa<br>
 	<span style="color: black;">Physical Review D, Volume 93, Issue 8, id.083006 (2016)</span><br>
 	arXiv:<a target="_top" href="http://arxiv.org/abs/1602.05700" ><u>1602.05700</u></a> <br>
-	<span style="color: red;">Note:  One of the figures were featured in the <a target="_top" href="http://journals.aps.org/prd/kaleidoscope/prd/93/8/083006"><span style="color: red;">Physical Review D "Kaleidoscope"</span></a>!</span>
+	<span style="color: red;">Note:  One of the figures was featured in the <a target="_top" href="http://journals.aps.org/prd/kaleidoscope/prd/93/8/083006"><span style="color: red;">Physical Review D "Kaleidoscope"</span></a>!</span>
       </li>
 
       <li data-date="2015-03-29" data-author="first" data-peer="peer" data-type="journal"><a target="_top" href="http://adsabs.harvard.edu/abs/2015ApJ...805..170H" ><u>"Possible Signatures of Ejecta-Companion Interaction in iPTF 13bvn"</u></a> <br>
@@ -255,7 +452,7 @@
       </li>
 
       <li data-date="2025-09-11" data-author="co" data-peer="peer" data-type="journal"><a target="_top" href="https://ui.adsabs.harvard.edu/abs/2025ApJS..280...43T/abstract"><u>"Rapid stellar and binary population synthesis with COMPAS: methods paper II"</u></a><br>
-	Ilya Mandel, Jeff Riley, Adam Boesky, Adam Brcek, <u>Ryosuke Hirai</u>, Veome Kapil, Mike Y. M. Lau, JD Merritt, Nicolás Rodríguez-Segovia, Isobel Romero-Shaw, Yuzhe Song, Simon Stevenson, Avi Vajpeyi, L. A. C. van Son, Alejandro Vigna-Gómez, Reinhold Willcox<br>
+	Team COMPAS: Ilya Mandel, Jeff Riley, Adam Boesky, Adam Brcek, <u>Ryosuke Hirai</u>, Veome Kapil, Mike Y. M. Lau, JD Merritt, Nicolás Rodríguez-Segovia, Isobel Romero-Shaw, Yuzhe Song, Simon Stevenson, Avi Vajpeyi, L. A. C. van Son, Alejandro Vigna-Gómez, Reinhold Willcox<br>
 	<span style="color: black;">The Astrophysical Journal Supplement Series, Volume 280, Issue 1, id.43, 9 pp. (2025)</span><br>
         arXiv:<a target="_top" href="https://arxiv.org/abs/2506.02316"><u>2506.02316</u></a>
       </li>
@@ -279,7 +476,7 @@
       </li>
 
       <li data-date="2025-05-14" data-author="co" data-peer="peer" data-type="journal"><a target="_top" href="https://ui.adsabs.harvard.edu/abs/2025PASJ...77L..17D/abstract"><u>"Evidence of non-Solar elemental composition in the clocked bursts from SRGA J144459.2−604207"</u></a><br>
-	Akira Dohi, Nobuya Nishimura, <u>Ryosuke Hirai</u>, Tomoshi Takeda, Wataru Iwatari, Toru Tamagawa, Amira Aoyama, Teruaki Enoto, Satoko Iwata, Yo Kato, Takao Kitaguchi, Tatehiro Mihara, Naoyuki Ota, Takuya Takahashi, Sota Watanabe, Kaede Yamasaki<br>
+	Akira Dohi, Nobuya Nishimura, <u>Ryosuke Hirai</u>, Tomoshi Takeda, Wataru Iwakiri, Toru Tamagawa, Amira Aoyama, Teruaki Enoto, Satoko Iwata, Yo Kato, Takao Kitaguchi, Tatehiro Mihara, Naoyuki Ota, Takuya Takahashi, Sota Watanabe, Kaede Yamasaki<br>
 	<span style="color: black;">Publications of the Astronomical Society of Japan, Volume 77, Issue 3, pp.L17-L23 (2025)</span><br>
         arXiv:<a target="_top" href="https://arxiv.org/abs/2411.10993"><u>2411.10993</u></a>
       </li>
@@ -333,7 +530,7 @@
       </li>
 
       <li data-date="2023-10-13" data-author="co" data-peer="peer" data-type="journal"><a target="_top" href="https://ui.adsabs.harvard.edu/abs/2023ApJ...956L..31M/abstract"><u>"SN 2022jli: a type Ic supernova with periodic modulation of its light curve and an unusually long rise"</u></a> <br>
-	T. Moore et al. (including <u>R. Hirai</u>)<br>
+	Moore T., Smartt S.J., Nicholl M., Srivastav S., Stevance H.F., Jess D.B., Grant S.D.T., Fulton M.D., Rhodes L., Sim S.A., <u>Hirai R.</u>, Podsiadlowski P., Anderson J.P., Ashall C., Bate W., Fender R., Gutierrez C.P., Howell D.A., Huber M.E., Inserra C., Leloudas G., Monard L.A.G., Muller-Bravo T.E., Shappee B.J., Smith K.W., Terreran G., Tonry J., Tucker M.A., Young D.R., Aamer A., Chen T.-W., Ragosta F., Galbany L., Gromadzki M., Harvey L., Hoeflich P., McCully C., Newsome M., Gonzalez E.P., Pellegrino C., Ramsden P., Perez-Torres M., Ridley E.J., Sheng X., Weston J.<br>
 	<span style="color: black;">The Astrophysical Journal Letters, Volume 956, Issue 1, id.L31, 13 pp. (2023)</span><br>
         arXiv:<a target="_top" href="https://arxiv.org/abs/2309.12750"><u>2309.12750</u></a>
       </li>
@@ -386,13 +583,13 @@
       </li>
 
       <li data-date="2022-02-02" data-author="co" data-peer="peer" data-type="journal"><a target="_top" href="https://ui.adsabs.harvard.edu/abs/2022ApJS..258...34R/abstract"><u>"Rapid stellar and binary population synthesis with COMPAS"</u></a> <br>
-	Team COMPAS (including <u>R. Hirai</u>)<br>
+	Team COMPAS: Jeff Riley, Poojan Agrawal, Jim W. Barrett, Kristan N. K. Boyett, Floor S. Broekgaarden, Debatri Chattopadhyay, Sebastian M. Gaebel, Fabian Gittins, <u>Ryosuke Hirai</u>, George Howitt, Stephen Justham, Lokesh Khandelwal, Floris Kummer, Mike Y. M. Lau, Ilya Mandel, Selma E. de Mink, Coenraad Neijssel, Tim Riley, Lieke van Son, Simon Stevenson, Alejandro Vigna-Gomez, Serena Vinciguerra, Tom Wagg, Reinhold Willcox<br>
 	<span style="color: black;">The Astrophysical Journal Supplement Series, Volume 258, Issue 2, id.34, 30 pp. (2022)</span><br>
 	arXiv:<a target="_top" href="https://arxiv.org/abs/2109.10352"><u>2109.10352</u></a>
       </li>
 
       <li data-date="2022-01-21" data-author="co" data-peer="peer" data-type="journal"><a target="_top" href="https://ui.adsabs.harvard.edu/abs/2022JOSS....7.3838C/abstract"><u>"COMPAS: A rapid binary population synthesis suite"</u></a> <br>
-	Team COMPAS (including <u>R. Hirai</u>)<br>
+	Team COMPAS: Jeff Riley, Poojan Agrawal, Jim W. Barrett, Kristan N. K. Boyett, Floor S. Broekgaarden, Debatri Chattopadhyay, Sebastian M. Gaebel, Fabian Gittins, <u>Ryosuke Hirai</u>, George Howitt, Stephen Justham, Lokesh Khandelwal, Floris Kummer, Mike Y. M. Lau, Ilya Mandel, Selma E. de Mink, Coenraad Neijssel, Tim Riley, Lieke van Son, Simon Stevenson, Alejandro Vigna-Gomez, Serena Vinciguerra, Tom Wagg, Reinhold Willcox<br>
 	<span style="color: black;">Journal of Open Source Software, vol. 7, issue 69, id. 3838 (2022)</span><br>
       </li>
 
@@ -421,7 +618,7 @@
       </li>
 
       <li data-date="2020-11-05" data-author="co" data-peer="peer" data-type="journal"><a target="_top" href="https://ui.adsabs.harvard.edu/abs/2020PASA...37...47A/abstract"><u>"Neutron Star Extreme Matter Observatory: A kilohertz-band gravitational-wave detector in the global network"</u></a> <br>
-	K. Ackley et al. (including <u>R. Hirai</u>)<br>
+	K. Ackley, V. B. Adya, P. Agrawal, P. Altin, G. Ashton, M. Bailes, E. Baltinas, A. Barbuio, D. Beniwal, C. Blair, D. Blair, G. N. Bolingbroke, V. Bossilkov, S. Shachar Boublil, D. D. Brown, B. J. Burridge, J. Calderon Bustillo, J. Cameron, H. Tuong Cao, J. B. Carlin, S. Chang, P. Charlton, C. Chatterjee, D. Chattopadhyay, X. Chen, J. Chi, J. Chow, Q. Chu, A. Ciobanu, T. Clarke, P. Clearwater, J. Cooke, D. Coward, H. Crisp, R. J. Dattatri, A. T. Deller, D. A. Dobie, L. Dunn, P. J. Easter, J. Eichholz, R. Evans, C. Flynn, G. Foran, P. Forsyth, Y. Gai, S. Galaudage, D. K. Galloway, B. Gendre, B. Goncharov, S. Goode, D. Gozzard, B. Grace, A. W. Graham, A. Heger, F. Hernandez Vivanco, <u>R. Hirai</u>, N. A. Holland, Z. J. Holmes, E. Howard, E. Howell, G. Howitt, M. T. Hübner, J. Hurley, C. Ingram, V. Jaberian Hamedan, K. Jenner, L. Ju, D. P. Kapasi, T. Kaur, N. Kijbunchoo, M. Kovalam, R. Kumar Choudhary, P. D. Lasky, M. Y. M. Lau, J. Leung, J. Liu, K. Loh, A. Mailvagan, I. Mandel, J. J. McCann, D. E. McClelland, K. McKenzie, D. McManus, T. McRae, A. Melatos, P. Meyers, H. Middleton, M. T. Miles, M. Millhouse, Y. Lun Mong, B. Mueller, J. Munch, J. Musiov, S. Muusse, R. S. Nathan, Y. Naveh, C. Neijssel, B. Neil, S. W. S. Ng, V. Oloworaran , D. J. Ottaway, M. Page, J. Pan, M. Pathak, E. Payne, J. Powell, J. Pritchard, E. Puckridge, A. Raidani, V. Rallabhandi, D. Reardon, J. A. Riley, L. Roberts, I. M. Romero-Shaw, T. J. Roocke, G. Rowell, N. Sahu, N. Sarin, L. Sarre, H. Sattari, M. Schiworski, S. M. Scott, R. Sengar, D. Shaddock, R. Shannon, J. SHI, P. Sibley, B. J. J. Slagmolen, T. Slaven-Blair, R. J. E. Smith, J. Spollard, L. Steed, L. Strang, H. Sun, A. Sunderland, S. Suvorova, C. Talbot, E. Thrane, D. Töyrä, P. Trahanas, A. Vajpeyi, J. V. van Heijningen, A. F. Vargas, P. J. Veitch, A. Vigna-Gomez, A. Wade, K. Walker, Z. Wang, R. L. Ward, K. Ward, S. Webb, L. Wen, K. Wette, R. Willcox, J. Winterflood, C. Wolf, B. Wu, M. Jet Yap, Z. You, H. Yu, J. Zhang, J. Zhang, C. Zhao, X. Zhu<br>
 	<span style="color: black;">Publications of the Astronomical Society of Australia, Volume 37, article id. e047 (2020)</span><br>
 	arXiv:<a target="_top" href="https://arxiv.org/abs/2007.03128"><u>2007.03128</u></a>
       </li>
@@ -439,7 +636,7 @@
       </li>
 
       <li data-date="2020-12-06" data-author="co" data-peer="peer" data-type="journal"><a target="_top" href="https://ui.adsabs.harvard.edu/abs/2020MNRAS.491.6000S/abstract"><u>"Origins of Type Ibn SNe 2006jc/2015G in interacting binaries and implications for pre-SN eruptions"</u></a> <br>
-	Ning-Chen Sun, Jusytn R. Maund, <u>Ryosuke Hirai</u>, Paul A. Crowther, Philipp Podsiadlowski<br>
+	Ning-Chen Sun, Justyn R. Maund, <u>Ryosuke Hirai</u>, Paul A. Crowther, Philipp Podsiadlowski<br>
 	<span style="color: black;">Monthly Notices of the Royal Astronomical Society, Volume 491, Issue 4, p.6000-6019 (2020)</span><br>
 	arXiv:<a target="_top" href="https://arxiv.org/abs/1909.07999"><u>1909.07999</u></a>
       </li>
@@ -484,19 +681,19 @@
       </li>
 
       <li data-date="2023-06" data-author="co" data-peer="nonpeer" data-type="other"><a target="_top" href="https://ui.adsabs.harvard.edu/abs/2023arXiv230612514L/abstract" ><u>"Roman CCS White Paper: Characterizing the Galactic population of isolated black holes"</u></a> <br>
-	C. Y. Lam et al. (including <u>R. Hirai</u>)<br>
+	Casey Y. Lam, Natasha Abrams, Jeff Andrews, Etienne Bachelet, Arash Bahramian, David Bennett, Valerio Bozza, Floor Broekgaarden, Sukanya Chakrabarti, William Dawson, Kareem El-Badry, Maya Fishbach, Giacomo Fragione, Scott Gaudi, Abhimat Gautam, <u>Ryosuke Hirai</u>, Daniel Holz, Matthew Hosek Jr., Macy Huston, Tharindu Jayasinghe, Samson Johnson, Daisuke Kawata, Naoki Koshimoto, Jessica R. Lu, Ilya Mandel, Shota Miyazaki, Przemek Mróz, Smadar Naoz, Clément Ranc, Dominick Rowan, Rainer Schödel, Tomer Shenar, Josh Simon, Rachel Street, Takahiro Sumi, Daisuke Suzuki, Sean Terry<br>
 	arXiv:<a target="_top" href="http://arxiv.org/abs/2306.12514" ><u>2306.12514</u></a>
       </li>
 
       <li data-date="2022-07" data-author="co" data-peer="nonpeer" data-type="other"><a target="_top" href="https://ui.adsabs.harvard.edu/abs/2022arXiv220711698C/abstract" ><u>"Science Cases for the Keck Wide-Field Imager"</u></a> <br>
-	J. Cooke et al. (including <u>R. Hirai</u>)<br>
+	J. Cooke, C. Angus, K. Auchettl, J. Bally, B. Bolin, S. Brough, J. N. Burchett, R. Foley, G. Foran, D. Forbes, J. Gannon, <u>R. Hirai</u>, G. G. Kacprzak, R. Margutti, C. Martinez-Lombilla, U. Mestric, A. Moller, A. Rest, J. Rhodes, R. M. Rich, F. Schussler, R. Wainscoat, J. Walawender, I. Wold, J. Zhang<br>
 	arXiv:<a target="_top" href="http://arxiv.org/abs/2207.11698" ><u>2207.11698</u></a>
       </li>
 
       <li data-date="2018-08-20" data-author="first" data-peer="nonpeer" data-type="other"><a target="_top" href="https://ui.adsabs.harvard.edu/abs/2018AstHe.111..580H/abstract" ><u>"水素欠乏超新星の親星の起源"</u></a> <br>
 	<u>平井 遼介</u><br>
 	<span style="color: black;">The Astronomical Herald, Volume 111, Issue 9, p.580-588 (2018)</span><br>
-	<span style="color: red;">Note: One of the figures were also used for the cover!</span>
+	<span style="color: red;">Note: One of the figures was also used for the cover!</span>
       </li>
 
   </ol>
@@ -619,4 +816,3 @@
 
   </body>
 </html>
-
