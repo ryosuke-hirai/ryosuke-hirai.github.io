@@ -107,7 +107,8 @@
           const authors = wrapper.textContent
             .replace(/\s+/g, " ")
             .trim()
-            .split(",")
+            // Split on commas and on "and" ("A, B and C" / "A, B, and C" / "A and B").
+            .split(/\s*,\s*(?:and\s+)?|\s+and\s+/)
             .map(function (a) { return a.trim(); })
             .filter(Boolean);
 
