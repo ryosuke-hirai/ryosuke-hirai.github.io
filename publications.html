@@ -138,7 +138,7 @@
             }
             wrapper.appendChild(full);
 
-            const shownAuthors = authors.slice(0, COMPACT_AUTHORS);
+            const shownAuthors = authors.slice(0, currentLimit());
             const hiraiAlreadyShown = shownAuthors.some(isHiraiAuthor);
 
             // Underline Hirai wherever he appears among the shown authors.
